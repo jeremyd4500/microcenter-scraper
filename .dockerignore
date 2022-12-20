@@ -1,0 +1,12 @@
+.dockerignore
+.git
+.husky
+.vscode
+node_modules
+.env
+.eslint*
+.gitignore
+.prettier*
+Dockerfile
+README.md
+yarn-error.log
