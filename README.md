@@ -1,6 +1,6 @@
 # Microcenter Scraper for 2230 M.2 SSD Inventory Alerts
 
-**NOTE**: If you are interested in this, please fork the repository, adjust the `STORE_URLS` variable in `scraper.ts` to fit match local stores. This image is specific to the GA Microcenter locations.
+**NOTE**: If you are interested in this, please fork the repository, adjust the `STORE_URLS` variable in `scraper.ts` to match your local stores. This image is specific to the GA Microcenter locations.
 
 Create a free account at [mailtrap](https://mailtrap.io/) and configure the `Email API` section of your account portal. Make sure to configure a `Sending Domain` as well as an API token under the `API` section.
 
