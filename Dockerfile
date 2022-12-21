@@ -1,4 +1,4 @@
-FROM node:lts
+FROM --platform=amd64 node:lts
 
 RUN mkdir -p /opt/startup
 COPY startup.sh /opt/startup
