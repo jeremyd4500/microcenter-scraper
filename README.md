@@ -16,7 +16,7 @@ services:
     environment:
       - MAILTRAP_TOKEN=<Your mailtrap API token>
       - MAILTRAP_SENDER_EMAIL=<Your mailtrap domain email>
-      - RECIPENT=<recipient email>
+      - RECIPIENT=<recipient email>
       - HOURS=9,12,16,20
     restart: unless-stopped
 ```
@@ -28,7 +28,7 @@ docker run \
     --name microcenter-scraper \
     -e MAILTRAP_TOKEN=<Your mailtrap API token> \
     -e MAILTRAP_SENDER_EMAIL=<Your mailtrap domain email> \
-    -e RECIPENT=<recipient email> \
+    -e RECIPIENT=<recipient email> \
     -e HOURS=9,12,16,20 \
     -d  \
     jeremyd4500/microcenter-scraper:latest

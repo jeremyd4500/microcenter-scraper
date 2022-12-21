@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const { MailtrapClient } = require('mailtrap');
 
 const TOKEN = process.env.MAILTRAP_TOKEN;
@@ -14,7 +13,7 @@ export const sendEmail = async (emailText: string) => {
 		};
 		const recipients = [
 			{
-				email: process.env.RECIPENT
+				email: process.env.RECIPIENT
 			}
 		];
 
