@@ -4,11 +4,12 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
+		"build": "tsc",
 		"format": "prettier --write \"**/**.{ts,js,json}\"",
 		"lint": "eslint . --ext .ts",
 		"prepare": "husky install",
 		"prestart": "yarn playwright install",
-		"start": "ts-node src/index.ts"
+		"start": "node build/index.js"
 	},
 	"dependencies": {
 		"@types/node": "^18.11.17",
