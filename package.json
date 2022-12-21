@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "tsc",
+		"dev": "ts-node src/index.ts",
 		"format": "prettier --write \"**/**.{ts,js,json}\"",
 		"lint": "eslint . --ext .ts",
 		"prepare": "husky install",
