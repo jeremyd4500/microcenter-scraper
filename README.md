@@ -33,7 +33,7 @@ docker run \
     -e HOURS=9,12,16,20 \
     -e TZ=America/New_York \
     -d \
-    --restart unless-stopped
+    --restart unless-stopped \
     jeremyd4500/microcenter-scraper:latest
 ```
 
