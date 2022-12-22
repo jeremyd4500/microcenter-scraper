@@ -26,34 +26,42 @@ if (!process.env.HOURS || !process.env.HOURS.length) {
 
 import { scrapeAndEmailResults } from './scraper';
 
-const DEFAULT_HOURS = [9, 12, 16, 20];
-const envHours = process.env.HOURS ? process.env.HOURS.split(',') : [];
-const hoursToCheck = envHours
-	.filter((hourStr) => hourStr.length && !isNaN(Number(hourStr.trim())))
-	.map((hourStr) => Number(hourStr));
+const date = new Date();
+log('App starting up', date);
+const hoursToCheck = getHoursToCheck();
+log('Hours of the day to check for in-store inventory: ' + hoursToCheck.toString(), date);
 
 setInterval(() => {
 	const date = new Date();
+	const currentHour = date.getHours();
+
+	if (hoursToCheck.includes(currentHour)) {
+		log('Checking for in-store inventory', date);
+		scrapeAndEmailResults();
+	} else {
+		log('Waiting for one of the specified hour(s) of the day', date);
+	}
+}, 60 * 60 * 1000);
+
+function getHoursToCheck(): number[] {
+	const DEFAULT_HOURS = [9, 12, 16, 20];
+	const envHours = process.env.HOURS ? process.env.HOURS.split(',') : [];
+	const numericEnvHours = envHours
+		.filter((hourStr) => hourStr.length && !isNaN(Number(hourStr.trim())))
+		.map((hourStr) => Number(hourStr));
+	if (numericEnvHours.length) {
+		return numericEnvHours;
+	}
+	return DEFAULT_HOURS;
+}
+
+function log(message: string, dateObj?: Date) {
+	const date = dateObj ? dateObj : new Date();
 	const year = date.getFullYear();
 	const month = `0 ${date.getMonth() + 1}`.slice(-2);
 	const day = `0 ${date.getDate()}`.slice(-2);
 	const hours = date.getHours();
 	const minutes = date.getMinutes();
 	const seconds = date.getSeconds();
-
-	if (hoursToCheck && hoursToCheck.length) {
-		if (hoursToCheck.includes(hours)) {
-			console.log(
-				`${year}-${month}-${day} ${hours}:${minutes}:${seconds} -> Checking for inventory`
-			);
-			scrapeAndEmailResults();
-		}
-	} else {
-		if (DEFAULT_HOURS.includes(hours)) {
-			console.log(
-				`${year}-${month}-${day} ${hours}:${minutes}:${seconds} -> Checking for inventory`
-			);
-			scrapeAndEmailResults();
-		}
-	}
-}, 60 * 60 * 1000);
+	console.log(`${year}-${month}-${day} ${hours}:${minutes}:${seconds} -> ${message}`);
+}

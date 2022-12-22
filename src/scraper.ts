@@ -9,21 +9,21 @@ const STORE_URLS = [
 	'https://www.microcenter.com/product/649991/inland-tn436-1tb-3d-tlc-nand-pcie-gen-4-x4-nvme-m2-2230-internal-ssd-compatible-with-microsoft-surface-and-steam-deck?storeid=065'
 ];
 
-async function init() {
+const init = async () => {
 	browser = await playwright.chromium.launch({
 		headless: true
 	});
 
 	page = await browser.newPage();
-}
+};
 
-async function checkStoreForInventory(storeURL: string): Promise<string> {
+const checkStoreForInventory = async (storeURL: string): Promise<string> => {
 	await page.goto(storeURL);
 	const texts = await page.locator('div#pnlInventory').allInnerTexts();
 	return texts.join();
-}
+};
 
-export async function scrapeAndEmailResults() {
+export const scrapeAndEmailResults = async () => {
 	let output = '';
 
 	await init();
@@ -36,4 +36,4 @@ export async function scrapeAndEmailResults() {
 	await browser.close();
 
 	await sendEmail(output);
-}
+};

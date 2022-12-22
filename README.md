@@ -8,7 +8,7 @@ Create a free account at [mailtrap](https://mailtrap.io/) and configure the `Ema
 
 ```bash
 ---
-version: "1"
+version: "2"
 services:
   microcenter-scraper:
     image: jeremyd4500/microcenter-scraper:latest
@@ -18,6 +18,7 @@ services:
       - MAILTRAP_SENDER_EMAIL=<Your mailtrap domain email>
       - RECIPIENT=<recipient email>
       - HOURS=9,12,16,20
+      - TZ=America/New_York
     restart: unless-stopped
 ```
 
@@ -30,10 +31,18 @@ docker run \
     -e MAILTRAP_SENDER_EMAIL=<Your mailtrap domain email> \
     -e RECIPIENT=<recipient email> \
     -e HOURS=9,12,16,20 \
-    -d  \
+    -e TZ=America/New_York \
+    -d \
+    --restart unless-stopped
     jeremyd4500/microcenter-scraper:latest
 ```
 
 ## Environment
 
-`HOURS` should be a comma-separated list of integer hours of the day you want to be notified at (in 24-hour format). Numeric values that are not integers or are outside the 24-hour range won't break the app but they also won't affect anything. Non-numeric values might break the app.
+### TZ
+
+`TZ` must be set if you are outside of the UTC timezone as UTC is the default for docker containers. If you neglect to include `TZ` and are outside the UTC timezone, the hours this app will check the microcenter website will be out-of-sync with the hours you specify.
+
+### HOURS
+
+`HOURS` is optional and should be a comma-separated list of integer hours of the day you want to be notified at (in 24-hour format). Numeric values that are not integers or are outside the 24-hour range won't break the app but they also won't affect anything. Non-numeric values might break the app.
